@@ -9,8 +9,12 @@ test('@regression test', async ({ page ,context}) => {
     await page.locator("input[type='password']").fill("abhiqa");
     await page.locator("button.loginButton").click();
 
-    await page.waitForTimeout(5000);
-    await page.getByRole("button", { name: "Search jobs here" }).click();
+    //await page.waitForTimeout(5000);
+    const searchButton =   page.getByRole("button", { name: "Search jobs here" });
+    await searchButton.waitFor();
+    await searchButton.click();
+
+    
     await page.locator("input[placeholder='Enter keyword / designation / companies']").fill("playwright automation testing engineer");
     await page.locator("#experienceDD").click();
     await page.locator("//li[@title='3 years']").click();
@@ -64,6 +68,7 @@ test('@regression test', async ({ page ,context}) => {
         await newPage.close();
 
         // 13. Make sure original page is still usable
+        await page.waitForLoadState('domcontentloaded');
         await page.bringToFront();
   
 }
