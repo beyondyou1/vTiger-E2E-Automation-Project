@@ -1,0 +1,23 @@
+
+# Ignore everything by default
+/*
+
+# Keep these files and directories (un-ignore)
+!.gitignore
+!.github/
+!.github/workflows/
+!.github/workflows/playwright.yml
+!playwright.config.ts
+!package.json
+!package-lock.json
+!tests/
+!tests/Naukari-Apply.spec.ts
+
+# Previously ignored directories (explicitly ignored inside ignored tree)
+node_modules/
+playwright/.auth/
+test-results/
+playwright-report/
+allure-results/
+allure-report/
+.vscode/
