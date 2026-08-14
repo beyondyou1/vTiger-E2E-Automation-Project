@@ -12,17 +12,14 @@ on:
       - master
 
   # Run every day at 9:00 AM IST
+  # GitHub Actions cron uses UTC
+  # 03:30 UTC = 09:00 AM IST
   schedule:
     - cron: "30 3 * * *"
 
-     workflow_dispatch:
+  # Manual execution from GitHub Actions
+  workflow_dispatch:
     inputs:
-
-      branch:
-        description: "Select branch to execute tests"
-        required: true
-        default: "feature/Naukari-apply"
-        type: string
 
       environment:
         description: "Select test environment"
@@ -54,6 +51,7 @@ on:
           - firefox
           - webkit
 
+# Prevent multiple executions of the same workflow
 concurrency:
   group: playwright-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -62,6 +60,7 @@ permissions:
   contents: read
 
 jobs:
+
   test:
     name: Playwright Tests
     runs-on: ubuntu-latest
@@ -100,10 +99,24 @@ jobs:
         run: npx playwright install --with-deps
 
       # --------------------------------------------------
-      # Run ONLY Naukari-Apply.spec.ts
+      # Display execution information
+      # --------------------------------------------------
+      - name: Display test configuration
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Environment: ${{ inputs.environment || 'qa' }}"
+          echo "Test Type: ${{ inputs.test_type || 'smoke' }}"
+          echo "Browser: ${{ inputs.browser || 'chromium' }}"
+          echo "Test File: tests/Naukari-Apply.spec.ts"
+
+      # --------------------------------------------------
+      # Run Naukari Playwright test
       # --------------------------------------------------
       - name: Run Naukari Apply test
-        run: npx playwright test tests/Naukari-Apply.spec.ts --project=chromium
+        run: |
+          npx playwright test tests/Naukari-Apply.spec.ts \
+            --project="${{ inputs.browser || 'chromium' }}"
 
       # --------------------------------------------------
       # Generate Allure report
@@ -138,7 +151,7 @@ jobs:
           retention-days: 30
 
       # --------------------------------------------------
-      # Upload test results
+      # Upload Playwright test results
       # --------------------------------------------------
       - name: Upload Playwright test results
         if: always()
@@ -156,7 +169,7 @@ jobs:
         uses: dawidd6/action-send-mail@v18
         with:
           server_address: smtp.gmail.com
-          server_port: 465
+          server_port: 587
           secure: true
 
           username: ${{ secrets.MAIL_USERNAME }}
@@ -165,26 +178,48 @@ jobs:
           subject: "Playwright Automation Report - ${{ job.status }}"
 
           to: "abhijeet.kumar.qa@gmail.com"
+
           from: "Playwright Automation <abhijeet.kumar.qa@gmail.com>"
 
           body: |
             Playwright Automation Test Execution
 
-            Repository: ${{ github.repository }}
-            Branch: ${{ github.ref_name }}
-            Workflow: ${{ github.workflow }}
-            Run Number: ${{ github.run_number }}
-            Status: ${{ job.status }}
+            ==========================================
+
+            Repository:
+            ${{ github.repository }}
+
+            Branch:
+            ${{ github.ref_name }}
+
+            Workflow:
+            ${{ github.workflow }}
+
+            Run Number:
+            ${{ github.run_number }}
+
+            Status:
+            ${{ job.status }}
+
+            Environment:
+            ${{ inputs.environment || 'qa' }}
+
+            Test Type:
+            ${{ inputs.test_type || 'smoke' }}
+
+            Browser:
+            ${{ inputs.browser || 'chromium' }}
 
             Test File:
             tests/Naukari-Apply.spec.ts
 
-            Browser:
-            Chromium
+            ==========================================
 
-            Test reports have been generated and uploaded as GitHub Actions artifacts.
+            Test reports have been generated and uploaded
+            as GitHub Actions artifacts.
 
             View GitHub Actions Run:
+
             https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
 
           attachments: |

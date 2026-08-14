@@ -21,3 +21,4 @@ playwright-report/
 allure-results/
 allure-report/
 .vscode/
+.github/workflows/copilot-setup-steps.yml
