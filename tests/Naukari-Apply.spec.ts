@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import type { BrowserContext } from '@playwright/test';
 
-test('test', async ({ page ,context}) => {
+test('@regression test', async ({ page ,context}) => {
  await page.goto("https://www.naukri.com/", { waitUntil: "domcontentloaded" });
 
     await page.locator("#login_Layer").click();
