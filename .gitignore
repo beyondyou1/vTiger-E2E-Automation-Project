@@ -11,6 +11,7 @@
 !package.json
 !package-lock.json
 !tests/
+!src
 
 # Previously ignored directories (explicitly ignored inside ignored tree)
 node_modules/
