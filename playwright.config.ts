@@ -2,9 +2,9 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   testDir: './tests',             
-  timeout: 60000,                
+  timeout: 20000,                
   expect: {
-    timeout: 60000,                
+    timeout: 20000,                
   },
   fullyParallel: true,            
   retries:  0, 
@@ -16,7 +16,7 @@ export default defineConfig({
   use: {
     actionTimeout: 30000,            
    // baseURL: 'https://example.com', 
-    trace: 'on-first-retry',        
+    trace: 'retain-on-failure',        
    // screenshot: 'only-on-failure',  
    // video: 'retain-on-failure', 
     headless: false,                 
@@ -32,7 +32,7 @@ export default defineConfig({
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-        storageState: './playwright/.auth/user.json',
+       // storageState: './playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     }/*,

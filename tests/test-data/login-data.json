@@ -1,0 +1,49 @@
+[
+
+    {
+"label": "valid credentials",
+"username": "admin",
+"password": "admin",
+"status": "valid"
+
+    },
+    
+    {     
+"label": "invalid username",
+"username": "admin123",
+"password": "admin",
+"status": "invalid"
+    },
+
+      {     
+"label": "invalid password",
+"username": "admin",
+"password": "admin123",
+"status": "invalid"
+    },
+
+      {     
+"label": "invalid credentials",
+"username": "admin123",
+"password": "admin",
+"status": "invalid"
+    },
+
+      {     
+"label": "blank username",
+"username": "",
+"password": "admin",
+"status": "invalid"
+    }
+
+
+
+
+
+
+
+
+
+
+
+]

@@ -11,7 +11,6 @@
 !package.json
 !package-lock.json
 !tests/
-!tests/Naukari-Apply.spec.ts
 
 # Previously ignored directories (explicitly ignored inside ignored tree)
 node_modules/
@@ -22,3 +21,8 @@ allure-results/
 allure-report/
 .vscode/
 .github/workflows/copilot-setup-steps.yml
+tests/amazon-product-seach
+tests/practice
+vTiger
+practice
+tests/Naukari-Apply.spec.ts
