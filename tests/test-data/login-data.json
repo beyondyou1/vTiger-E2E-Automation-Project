@@ -1,49 +1,17 @@
-[
 
-    {
-"label": "valid credentials",
-"username": "admin",
-"password": "admin",
-"status": "valid"
+{
+"validLogin" :  {
+
+     "username": "admin",
+     "password": "admin"
 
     },
-    
-    {     
-"label": "invalid username",
-"username": "admin123",
-"password": "admin",
-"status": "invalid"
-    },
 
-      {     
-"label": "invalid password",
-"username": "admin",
-"password": "admin123",
-"status": "invalid"
-    },
+    "invalidLogin" : {
+         "invalidUsername": "admin123",
+         "invalidPassword": "admin321",
+         "errorMSG" : "You must specify a valid username and password"
 
-      {     
-"label": "invalid credentials",
-"username": "admin123",
-"password": "admin",
-"status": "invalid"
-    },
-
-      {     
-"label": "blank username",
-"username": "",
-"password": "admin",
-"status": "invalid"
     }
 
-
-
-
-
-
-
-
-
-
-
-]
+}
