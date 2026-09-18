@@ -27,3 +27,4 @@ tests/practice
 vTiger
 practice
 tests/Naukari-Apply.spec.ts
+playwright/.auth/

@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: './tests',
+ testDir: '.',
   timeout: 20000,                
   expect: {
     timeout: 20000,                
@@ -15,7 +15,7 @@ export default defineConfig({
   ],
   use: {
     actionTimeout: 30000,            
-   // baseURL: 'https://example.com', 
+    baseURL: 'http://localhost:8889/', 
     trace: 'retain-on-failure',        
    // screenshot: 'only-on-failure',  
    // video: 'retain-on-failure', 
@@ -26,13 +26,13 @@ export default defineConfig({
   projects: [
     {
       name: 'setup',
-      testMatch: /login-setup\.test\.ts/,
+      testMatch: /vTiger-auth-setup\.ts/,
     },
     {
       name: 'chromium',
       use: { 
         ...devices['Desktop Chrome'],
-       // storageState: './playwright/.auth/user.json',
+        storageState: './playwright/.auth/user.json',
       },
       dependencies: ['setup'],
     }/*,
